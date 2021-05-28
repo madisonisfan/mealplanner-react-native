@@ -21,7 +21,7 @@ class Recipes extends Component {
   };
   render() {
     return (
-      <View style={{ fontSize: 50 }}>
+      <View>
         <View style={styles.header}>
           <Text>Header</Text>
         </View>
@@ -41,7 +41,6 @@ class Recipes extends Component {
         </View>
         <View>
           <Picker
-            mode="dropdown"
             style={styles.picker}
             selectedValue={this.state.mealtype}
             onValueChange={(mealtype) => this.setState({ mealtype: mealtype })}
@@ -62,12 +61,10 @@ class Recipes extends Component {
                 style={{ width: 150, height: 100, marginRight: 10 }}
                 source={require("./images/food1.jpg")}
               />
-              <View style={{ flexGrow: 1 }}>
-                <View style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 18 }}>Recipe Name</Text>
-                  <Text>Recipe Description</Text>
-                </View>
-                <View style={{ alignSelf: "flex-end", flex: 1 }}>
+              <View>
+                <Text>Recipe Name</Text>
+                <Text>Recipe Description</Text>
+                <View style={{ alignSelf: "flex-end" }}>
                   <Icon name="star" type="font-awesome" />
                 </View>
               </View>
@@ -100,7 +97,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     backgroundColor: "#FFFFFF",
     height: 40,
-    marginTop: 15,
   },
 });
 

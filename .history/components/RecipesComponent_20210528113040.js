@@ -55,19 +55,17 @@ class Recipes extends Component {
         </View>
         <ScrollView>
           <Card>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", padding: 0 }}>
               <Image
                 style={{}}
                 resizeMethod="auto"
                 style={{ width: 150, height: 100, marginRight: 10 }}
                 source={require("./images/food1.jpg")}
               />
-              <View style={{ flexGrow: 1 }}>
-                <View style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 18 }}>Recipe Name</Text>
-                  <Text>Recipe Description</Text>
-                </View>
-                <View style={{ alignSelf: "flex-end", flex: 1 }}>
+              <View>
+                <Text>Recipe Name</Text>
+                <Text>Recipe Description</Text>
+                <View style={{ alignSelf: "flex-end" }}>
                   <Icon name="star" type="font-awesome" />
                 </View>
               </View>

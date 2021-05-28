@@ -3,5 +3,5 @@ import React from "react";
 import Main from "./components/MainComponent";
 
 export default function App() {
-  return <Main style={{}} />;
+  return <Main style={{ fontFamily: "Alegraya SC" }} />;
 }

@@ -63,11 +63,9 @@ class Recipes extends Component {
                 source={require("./images/food1.jpg")}
               />
               <View style={{ flexGrow: 1 }}>
-                <View style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 18 }}>Recipe Name</Text>
-                  <Text>Recipe Description</Text>
-                </View>
-                <View style={{ alignSelf: "flex-end", flex: 1 }}>
+                <Text style={{ fontSize: 18 }}>Recipe Name</Text>
+                <Text>Recipe Description</Text>
+                <View style={{ alignSelf: "flex-end", flexGrow: 1 }}>
                   <Icon name="star" type="font-awesome" />
                 </View>
               </View>
