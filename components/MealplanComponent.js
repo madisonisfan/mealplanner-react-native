@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { Button, Card, Icon } from "react-native-elements";
+import { ScrollView } from "react-native-gesture-handler";
 
 class Mealplan extends Component {
   constructor(props) {
@@ -12,10 +14,27 @@ class Mealplan extends Component {
   render() {
     return (
       <View>
-        <Text style={{ fontSize: 25, marginTop: 50 }}>Mealplan</Text>
+        <View style={styles.header}>
+          <Text>Header</Text>
+        </View>
+        <View style={{ alignItems: "center", marginTop: 15 }}>
+          <Text style={{ fontSize: 20 }}>Monday, January 1, 2021</Text>
+        </View>
+        <ScrollView>
+          <View style={{ margin: 10 }}>
+            <Text style={{ fontSize: 18 }}>Breakfast</Text>
+          </View>
+        </ScrollView>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: "#B8FAFE",
+    height: 75,
+  },
+});
 
 export default Mealplan;

@@ -21,7 +21,7 @@ class Recipes extends Component {
   };
   render() {
     return (
-      <View style={{ fontSize: 50 }}>
+      <View>
         <View style={styles.header}>
           <Text>Header</Text>
         </View>
@@ -29,14 +29,14 @@ class Recipes extends Component {
           <Button
             type="outline"
             raised
-            style={styles.topButtons}
-            title={<Text style={{ color: "#000000" }}>My Favorites</Text>}
+            titleStyle={{ color: "#000000" }}
+            title="My Favorites"
           />
           <Button
             type="outline"
             raised
-            buttonStyle={styles.topButtons}
-            title={<Text style={{ color: "#000000" }}>Add Recipe</Text>}
+            titleStyle={{ color: "#000000" }}
+            title="Add Favorite"
           />
         </View>
         <View>
