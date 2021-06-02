@@ -7,7 +7,14 @@ import {
   ScrollView,
   Image,
 } from "react-native";
+import { connect } from "react-redux";
 import { Button, Card, Icon } from "react-native-elements";
+import { FlatList } from "react-native-gesture-handler";
+import { baseUrl } from "../shared/baseUrl";
+
+const mapStateToProps = (state) => {
+  return { recipes: state.recipes };
+};
 
 class Recipes extends Component {
   constructor(props) {
@@ -17,14 +24,45 @@ class Recipes extends Component {
     };
   }
   static navigationOptions = {
-    title: "Recipes: All Recipes",
+    title: "Recipes",
   };
+
   render() {
+    if (this.props.recipes.errMess) {
+      return (
+        <View>
+          <Text>{this.props.recipes.errMess}</Text>
+        </View>
+      );
+    }
+
+    const renderRecipeItem = ({ item }) => {
+      return (
+        <Card>
+          <View style={{ flexDirection: "row" }}>
+            <Image
+              style={{}}
+              resizeMethod="auto"
+              style={{ width: 150, height: 100, marginRight: 10 }}
+              //source={require("./images/food1.jpg")}
+              source={{ uri: baseUrl + item.image }}
+            />
+            <View style={{ flexGrow: 1 }}>
+              <View style={{ flex: 2 }}>
+                <Text style={{ fontSize: 18 }}>{item.name}</Text>
+                <Text>{item.description}</Text>
+              </View>
+              <View style={{ alignSelf: "flex-end", flex: 1 }}>
+                <Icon name="star" type="font-awesome" />
+              </View>
+            </View>
+          </View>
+        </Card>
+      );
+    };
+
     return (
       <View>
-        <View style={styles.header}>
-          <Text>Header</Text>
-        </View>
         <View style={styles.topButtonsView}>
           <Button
             type="outline"
@@ -53,27 +91,11 @@ class Recipes extends Component {
             <Picker.Item label="Drinks" value="drinks" />
           </Picker>
         </View>
-        <ScrollView>
-          <Card>
-            <View style={{ flexDirection: "row" }}>
-              <Image
-                style={{}}
-                resizeMethod="auto"
-                style={{ width: 150, height: 100, marginRight: 10 }}
-                source={require("./images/food1.jpg")}
-              />
-              <View style={{ flexGrow: 1 }}>
-                <View style={{ flex: 2 }}>
-                  <Text style={{ fontSize: 18 }}>Recipe Name</Text>
-                  <Text>Recipe Description</Text>
-                </View>
-                <View style={{ alignSelf: "flex-end", flex: 1 }}>
-                  <Icon name="star" type="font-awesome" />
-                </View>
-              </View>
-            </View>
-          </Card>
-        </ScrollView>
+        <FlatList
+          data={this.props.recipes.recipes}
+          renderItem={renderRecipeItem}
+          keyExtractor={(item) => item.id.toString()}
+        />
       </View>
     );
   }
@@ -104,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Recipes;
+export default connect(mapStateToProps)(Recipes);

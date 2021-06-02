@@ -3,86 +3,162 @@ import Mealplan from "./MealplanComponent";
 import Recipes from "./RecipesComponent";
 import Blog from "./BlogComponent";
 import ProfilePage from "./ProfilePageComponent";
-
+import { connect } from "react-redux";
 import { View, Platform, Text } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { Icon } from "react-native-elements";
+import { fetchRecipes } from "../redux/ActionCreators";
 import App from "../App";
 
-const Tab = createBottomTabNavigator();
+const mapDispatchToProps = {
+  fetchRecipes,
+};
 
-/*const MealplanNavigator = createStackNavigator(
+const MealplanNavigator = createStackNavigator(
   {
     Mealplan: { screen: Mealplan },
   },
   {
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: "rgb(215, 242, 250);",
+        backgroundColor: "#D7FFFF",
       },
       headerTitleStyle: {
         color: "#000000",
       },
     },
   }
-); */
+);
 
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="Mealplan"
-        component={Mealplan}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            <View>
-              <Icon name="pencil" type="font-awesome" />
-              <Text style={{ color: focused ? " #e34f45" : "#748c94" }}>
-                MP
-              </Text>
-            </View>;
-          },
-        }}
-      />
-      <Tab.Screen name="recipes" component={Recipes} />
-      <Tab.Screen name="blog" component={Blog} />
-      <Tab.Screen name="profilePage" component={ProfilePage} />
-    </Tab.Navigator>
-  );
-}
+const RecipesNavigator = createStackNavigator(
+  {
+    Recipes: { screen: Recipes },
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#D7FFFF",
+      },
+      headerTitleStyle: {
+        color: "#000000",
+      },
+    },
+  }
+);
 
-/*const MainNavigator = createBottomTabNavigator(
+const BlogNavigator = createStackNavigator(
+  {
+    Blog: { screen: Blog },
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#D7FFFF",
+      },
+      headerTitleStyle: {
+        color: "#000000",
+      },
+    },
+  }
+);
+const ProfileNavigator = createStackNavigator(
+  {
+    Profile: { screen: ProfilePage },
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: "#D7FFFF",
+      },
+      headerTitleStyle: {
+        color: "#000000",
+      },
+    },
+  }
+);
+
+const MainNavigator = createBottomTabNavigator(
   {
     Mealplan: {
       screen: MealplanNavigator,
-    navigationOptions: {
-      drawerIcon: ({ tintColor }) => (
-        <Icon name="pencil" type="font-awesome" size={24} color={tintColor} />
-      ),
-    }, 
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="utensils"
+            type="font-awesome"
+            iconStyle={{ color: tintColor }}
+          />
+        ),
+      },
+    },
+    Recipes: {
+      screen: RecipesNavigator,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="list"
+            type="font-awesome"
+            iconStyle={{ color: tintColor }}
+          />
+        ),
+      },
+    },
+    Blog: {
+      screen: BlogNavigator,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="users"
+            type="font-awesome"
+            iconStyle={{ color: tintColor }}
+          />
+        ),
+      },
+    },
+    Profile: {
+      screen: ProfileNavigator,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            name="user"
+            type="font-awesome"
+            iconStyle={{ color: tintColor }}
+          />
+        ),
+      },
     },
   },
   {
-    initialRouteName: "Mealplan",
+    tabBarOptions: {
+      activeBackgroundColor: "#5637DD",
+      inactiveBackgroundColor: "#CEC8FF",
+      activeTintColor: "#fff",
+      inactiveTintColor: "#808080",
+      labelStyle: { fontSize: 16 },
+      showLabel: false,
+    },
   }
-); */
-
-//const AppNavigator = createAppContainer(MyTabs);
+);
+const AppNavigator = createAppContainer(MainNavigator);
 
 class Main extends Component {
+  componentDidMount() {
+    this.props.fetchRecipes();
+  }
+
   render() {
-    return (
-      <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
-    );
+    return <AppNavigator />;
   }
 }
 
-export default Main;
+/*<NavigationContainer>
+        <MyTabs />
+      </NavigationContainer> */
+
+export default connect(null, mapDispatchToProps)(Main);
 
 /**    <View
         style={{

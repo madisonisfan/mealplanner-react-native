@@ -8,14 +8,11 @@ class ProfilePage extends Component {
     this.state = {};
   }
   static navigationOptions = {
-    title: "Profile Page",
+    title: "Your Profile Page",
   };
   render() {
     return (
       <View>
-        <View style={styles.header}>
-          <Text>Header</Text>
-        </View>
         <View style={{ alignSelf: "center" }}>
           <Image
             style={{ height: 100, width: 100, marginTop: 15 }}

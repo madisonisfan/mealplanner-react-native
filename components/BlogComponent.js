@@ -13,9 +13,6 @@ class Blog extends Component {
   render() {
     return (
       <View>
-        <View style={styles.header}>
-          <Text>Blog</Text>
-        </View>
         <View
           style={{
             height: 75,
