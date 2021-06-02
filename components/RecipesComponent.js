@@ -69,6 +69,7 @@ class Recipes extends Component {
             raised
             titleStyle={{ color: "#000000" }}
             title="My Favorites"
+            onPress={() => this.props.navigation.navigate("Favorites")}
           />
           <Button
             type="outline"
@@ -92,7 +93,16 @@ class Recipes extends Component {
           </Picker>
         </View>
         <FlatList
-          data={this.props.recipes.recipes}
+          /* data={this.props.recipes.recipes.filter((recipe) => {
+            recipe.id === 0;
+          })} */
+          data={
+            this.state.mealtype === "all"
+              ? this.props.recipes.recipes
+              : this.props.recipes.recipes.filter(
+                  (recipe) => recipe.mealType === this.state.mealtype
+                )
+          }
           renderItem={renderRecipeItem}
           keyExtractor={(item) => item.id.toString()}
         />

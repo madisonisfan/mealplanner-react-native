@@ -3,6 +3,7 @@ import Mealplan from "./MealplanComponent";
 import Recipes from "./RecipesComponent";
 import Blog from "./BlogComponent";
 import ProfilePage from "./ProfilePageComponent";
+import Favorites from "./FavoritesComponent";
 import { connect } from "react-redux";
 import { View, Platform, Text } from "react-native";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -28,6 +29,8 @@ const MealplanNavigator = createStackNavigator(
       },
       headerTitleStyle: {
         color: "#000000",
+        textAlign: "center",
+        fontSize: 25,
       },
     },
   }
@@ -36,13 +39,16 @@ const MealplanNavigator = createStackNavigator(
 const RecipesNavigator = createStackNavigator(
   {
     Recipes: { screen: Recipes },
+    Favorites: { screen: Favorites },
   },
   {
+    initialRouteName: "Recipes",
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: "#D7FFFF",
       },
       headerTitleStyle: {
+        fontSize: 25,
         color: "#000000",
       },
     },
@@ -59,6 +65,7 @@ const BlogNavigator = createStackNavigator(
         backgroundColor: "#D7FFFF",
       },
       headerTitleStyle: {
+        fontSize: 25,
         color: "#000000",
       },
     },
@@ -74,6 +81,7 @@ const ProfileNavigator = createStackNavigator(
         backgroundColor: "#D7FFFF",
       },
       headerTitleStyle: {
+        fontSize: 25,
         color: "#000000",
       },
     },
@@ -133,11 +141,11 @@ const MainNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      activeBackgroundColor: "#5637DD",
-      inactiveBackgroundColor: "#CEC8FF",
-      activeTintColor: "#fff",
-      inactiveTintColor: "#808080",
-      labelStyle: { fontSize: 16 },
+      activeBackgroundColor: "#000000",
+      inactiveBackgroundColor: "#000000",
+      activeTintColor: "#FFFFFF",
+      inactiveTintColor: "#FFFFFF",
+
       showLabel: false,
     },
   }

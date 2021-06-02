@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Button, Card, Icon } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
+import { useFonts } from "expo-font";
 
 class Mealplan extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      fontsLoaded: false,
+    };
   }
+
   static navigationOptions = {
     title: "Your Mealplan",
   };
@@ -136,11 +140,6 @@ class Mealplan extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#B8FAFE",
-    height: 75,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default Mealplan;
