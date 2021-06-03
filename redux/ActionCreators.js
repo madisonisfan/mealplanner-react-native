@@ -112,12 +112,61 @@ export const postFavorite = (recipeId) => (dispatch) => {
     .then((response) => response.json())
     .then((response) => dispatch(addFavorite(response)))
     .catch((error) => {
-      console.log("post comment", error.message);
-      alert("Your comment could not be posted\nError: " + error.message);
+      console.log("post favorite", error.message);
+      alert("The recipe could not be favorited\nError: " + error.message);
     });
 };
 
-export const addFavorite = (recipeId) => ({
+export const addFavorite = (recipe) => ({
   type: ActionTypes.ADD_FAVORITE,
-  payload: recipeId,
+  payload: recipe,
 });
+
+export const deleteFavorite = (favoriteId) => (dispatch) => {
+  dispatch(removeFavorite(favoriteId)); //need to figure out a way to do this in the then
+
+  return (
+    fetch(baseUrl + `favorites/${favoriteId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: null,
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            const error = new Error(
+              `Error ${response.status}: ${response.statusText}`
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          throw error;
+        }
+      )
+      .then((response) => response.json())
+      //.then((response) => dispatch(removeFavorite(response))) //dispatch(deleteFavorite(response))
+      //.then((response) => console.log("delete response", response.status))
+      //.then(() => dispatch(removeFavorite(favoriteId)))
+      .catch((error) => {
+        console.log("post favorite", error.message);
+        alert("The recipe could not be favorited\nError: " + error.message);
+      })
+  );
+};
+
+const removeFavorite = (favoriteId) => ({
+  type: ActionTypes.REMOVE_FAVORITE,
+  payload: favoriteId,
+});
+
+/*const removeFavorite = (recipe) => ({
+  type: ActionTypes.REMOVE_FAVORITE,
+  payload: recipe,
+});
+*/

@@ -11,6 +11,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { Button, Card, Icon } from "react-native-elements";
 import { baseUrl } from "../shared/baseUrl";
+import { deleteFavorite } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => {
   return {
@@ -18,12 +19,28 @@ const mapStateToProps = (state) => {
     favorites: state.favorites,
   };
 };
+
+const mapDispatchToProps = {
+  removeFavorite: (recipeId) => deleteFavorite(recipeId),
+};
+
 class Favorites extends Component {
   static navigationOptions = {
     title: "My Favorites",
   };
 
+  handleFavorite(recipeId) {
+    const favoriteObject = this.props.favorites.favorites.filter(
+      (favoriteItem) => favoriteItem.recipeId === recipeId
+    )[0];
+    const favoriteId = favoriteObject.id;
+    this.props.removeFavorite(favoriteId);
+  }
+
   render() {
+    const favoritesList = this.props.favorites.favorites.map(
+      (favoritedRecipe) => favoritedRecipe.recipeId
+    );
     const renderFavoriteItem = ({ item }) => {
       return (
         <Card>
@@ -41,7 +58,12 @@ class Favorites extends Component {
                 <Text>{item.description}</Text>
               </View>
               <View style={{ alignSelf: "flex-end", flex: 1 }}>
-                <Icon size={30} name="star" type="font-awesome" />
+                <Icon
+                  size={30}
+                  name="star"
+                  type="font-awesome"
+                  onPress={() => this.handleFavorite(item.id)}
+                />
               </View>
             </View>
           </View>
@@ -53,9 +75,8 @@ class Favorites extends Component {
       <View>
         <FlatList
           data={this.props.recipes.recipes.filter((recipe) =>
-            this.props.favorites.favorites.includes(recipe.id)
+            favoritesList.includes(recipe.id)
           )}
-          //data={this.props.favorites.favorites}
           renderItem={renderFavoriteItem}
           keyExtractor={(item) => item.id.toString()}
         />
@@ -64,4 +85,4 @@ class Favorites extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Favorites);
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

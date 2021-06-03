@@ -19,6 +19,20 @@ export const favorites = (
     case ActionTypes.ADD_FAVORITE:
       const favorite = action.payload;
       return { ...state, favorites: state.favorites.concat(favorite) };
+    case ActionTypes.REMOVE_FAVORITE:
+      /*const favoriteRecipe = action.payload;
+      const newFavorites = state.favorites.filter(
+        (favorite) => favorite.id !== favoriteRecipe.id
+      );
+      */
+      const favoriteId = action.payload;
+
+      return {
+        ...state,
+        favorites: state.favorites.filter(
+          (favorite) => favorite.id !== favoriteId
+        ),
+      };
     default:
       return state;
   }

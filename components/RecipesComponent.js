@@ -11,7 +11,11 @@ import { connect } from "react-redux";
 import { Button, Card, Icon } from "react-native-elements";
 import { FlatList } from "react-native-gesture-handler";
 import { baseUrl } from "../shared/baseUrl";
-import { postFavorite } from "../redux/ActionCreators";
+import {
+  postFavorite,
+  removeFavorite,
+  deleteFavorite,
+} from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => {
   return { recipes: state.recipes, favorites: state.favorites };
@@ -19,6 +23,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   postFavorite: (recipeId) => postFavorite(recipeId),
+  removeFavorite: (recipeId) => deleteFavorite(recipeId),
 };
 
 class Recipes extends Component {
@@ -34,13 +39,21 @@ class Recipes extends Component {
 
   handleFavorite(isFavorite, recipeId) {
     if (isFavorite) {
-      this.removeFavorite(recipeId);
+      const favoriteObject = this.props.favorites.favorites.filter(
+        (favoriteItem) => favoriteItem.recipeId === recipeId
+      )[0];
+      const favoriteId = favoriteObject.id;
+      this.props.removeFavorite(favoriteId);
     } else {
       this.props.postFavorite(recipeId);
     }
   }
 
   render() {
+    const favoritesList = this.props.favorites.favorites.map(
+      (favoritedRecipe) => favoritedRecipe.recipeId
+    );
+
     if (this.props.recipes.errMess) {
       return (
         <View>
@@ -50,7 +63,7 @@ class Recipes extends Component {
     }
 
     const renderRecipeItem = ({ item }) => {
-      const isFavorited = this.props.favorites.favorites.includes(item.id);
+      const isFavorited = favoritesList.includes(item.id);
 
       return (
         <Card>
