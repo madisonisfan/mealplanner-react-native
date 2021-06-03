@@ -4,6 +4,7 @@ import Recipes from "./RecipesComponent";
 import Blog from "./BlogComponent";
 import ProfilePage from "./ProfilePageComponent";
 import Favorites from "./FavoritesComponent";
+import CreatePost from "./CreatePostComponent";
 import { connect } from "react-redux";
 import { View, Platform, Text } from "react-native";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -11,11 +12,12 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { Icon } from "react-native-elements";
-import { fetchRecipes } from "../redux/ActionCreators";
+import { fetchRecipes, fetchFavorites } from "../redux/ActionCreators";
 import App from "../App";
 
 const mapDispatchToProps = {
   fetchRecipes,
+  fetchFavorites,
 };
 
 const MealplanNavigator = createStackNavigator(
@@ -58,6 +60,7 @@ const RecipesNavigator = createStackNavigator(
 const BlogNavigator = createStackNavigator(
   {
     Blog: { screen: Blog },
+    CreatePost: { screen: CreatePost },
   },
   {
     defaultNavigationOptions: {
@@ -155,6 +158,7 @@ const AppNavigator = createAppContainer(MainNavigator);
 class Main extends Component {
   componentDidMount() {
     this.props.fetchRecipes();
+    this.props.fetchFavorites();
   }
 
   render() {

@@ -14,7 +14,8 @@ export const recipes = (
       };
     case ActionTypes.RECIPES_FAILED:
       return { ...state, isLoading: false, errMess: action.payload };
-
+    case ActionTypes.RECIPES_LOADING:
+      return { ...state, isLoading: true, errMess: null, recipes: [] };
     default:
       return state;
   }

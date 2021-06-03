@@ -11,9 +11,14 @@ import { connect } from "react-redux";
 import { Button, Card, Icon } from "react-native-elements";
 import { FlatList } from "react-native-gesture-handler";
 import { baseUrl } from "../shared/baseUrl";
+import { postFavorite } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => {
-  return { recipes: state.recipes };
+  return { recipes: state.recipes, favorites: state.favorites };
+};
+
+const mapDispatchToProps = {
+  postFavorite: (recipeId) => postFavorite(recipeId),
 };
 
 class Recipes extends Component {
@@ -27,6 +32,14 @@ class Recipes extends Component {
     title: "Recipes",
   };
 
+  handleFavorite(isFavorite, recipeId) {
+    if (isFavorite) {
+      this.removeFavorite(recipeId);
+    } else {
+      this.props.postFavorite(recipeId);
+    }
+  }
+
   render() {
     if (this.props.recipes.errMess) {
       return (
@@ -37,6 +50,8 @@ class Recipes extends Component {
     }
 
     const renderRecipeItem = ({ item }) => {
+      const isFavorited = this.props.favorites.favorites.includes(item.id);
+
       return (
         <Card>
           <View style={{ flexDirection: "row" }}>
@@ -53,7 +68,12 @@ class Recipes extends Component {
                 <Text>{item.description}</Text>
               </View>
               <View style={{ alignSelf: "flex-end", flex: 1 }}>
-                <Icon name="star" type="font-awesome" />
+                <Icon
+                  type="font-awesome"
+                  size={30}
+                  name={isFavorited ? "star" : "star-o"}
+                  onPress={() => this.handleFavorite(isFavorited, item.id)}
+                />
               </View>
             </View>
           </View>
@@ -75,7 +95,7 @@ class Recipes extends Component {
             type="outline"
             raised
             titleStyle={{ color: "#000000" }}
-            title="Add Favorite"
+            title="Add Recipe"
           />
         </View>
         <View>
@@ -136,4 +156,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps)(Recipes);
+export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

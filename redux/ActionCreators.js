@@ -42,7 +42,7 @@ export const addRecipes = (recipes) => ({
 });
 
 export const fetchFavorites = () => (dispatch) => {
-  //dispatch(favoritesLoading());
+  dispatch(favoritesLoading());
 
   return fetch(baseUrl + "favorites")
     .then(
@@ -63,20 +63,61 @@ export const fetchFavorites = () => (dispatch) => {
       }
     )
     .then((response) => response.json())
-    .then((recipes) => dispatch(addFavorites(recipes)))
+    .then((favorites) => dispatch(addFavorites(favorites)))
     .catch((error) => dispatch(favoritesFailed(error.message)));
 };
 
-const addFavorites = (favorites) => ({
-  type: ActionTypes.ADD_FAVORITES,
-  payload: favorites,
+export const favoritesLoading = () => ({
+  type: ActionTypes.FAVORITES_LOADING,
 });
 
-const favoritesFailed = (errMess) => ({
+export const favoritesFailed = (errMess) => ({
   type: ActionTypes.FAVORITES_FAILED,
   payload: errMess,
 });
 
-const favoritesFailed = () => ({
-  type: ActionTypes.FAVORITES_LOADING,
+export const addFavorites = (favorites) => ({
+  type: ActionTypes.ADD_FAVORITES,
+  payload: favorites,
+});
+
+export const postFavorite = (recipeId) => (dispatch) => {
+  const addRecipe = {
+    recipeId,
+  };
+
+  return fetch(baseUrl + "favorites", {
+    method: "POST",
+    body: JSON.stringify(addRecipe),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            `Error ${response.status}: ${response.statusText}`
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addFavorite(response)))
+    .catch((error) => {
+      console.log("post comment", error.message);
+      alert("Your comment could not be posted\nError: " + error.message);
+    });
+};
+
+export const addFavorite = (recipeId) => ({
+  type: ActionTypes.ADD_FAVORITE,
+  payload: recipeId,
 });

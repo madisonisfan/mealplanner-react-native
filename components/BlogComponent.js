@@ -32,6 +32,7 @@ class Blog extends Component {
               title={
                 <Text style={{ color: "#000000" }}>Today I'm thinking..</Text>
               }
+              onPress={() => this.props.navigation.navigate("CreatePost")}
             />
           </View>
         </View>
