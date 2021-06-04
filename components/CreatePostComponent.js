@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, Picker } from "react-native";
+import { Button, Card, Icon } from "react-native-elements";
 import { Input } from "react-native-elements";
+import { postPost } from "../redux/ActionCreators";
+import { connect } from "react-redux";
+
+const mapDispatchToProps = {
+  postPost: (postContent, postType) => postPost(postContent, postType),
+};
 
 class CreatePost extends Component {
   constructor(props) {
@@ -14,6 +21,10 @@ class CreatePost extends Component {
   static navigationOptions = {
     title: "Create Post",
   };
+
+  submitPost() {
+    this.props.postPost(this.state.postContent, this.state.postType);
+  }
 
   render() {
     return (
@@ -38,6 +49,15 @@ class CreatePost extends Component {
               <Picker.Item label="Need Advice" value="needAdvice" />
             </Picker>
           </View>
+          <View>
+            <Button
+              title="Post"
+              onPress={() => {
+                this.submitPost();
+                this.props.navigation.navigate("Blog");
+              }}
+            />
+          </View>
         </View>
         <View>
           <Input
@@ -51,4 +71,4 @@ class CreatePost extends Component {
   }
 }
 
-export default CreatePost;
+export default connect(null, mapDispatchToProps)(CreatePost);

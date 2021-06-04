@@ -170,3 +170,88 @@ const removeFavorite = (favoriteId) => ({
   payload: recipe,
 });
 */
+
+export const fetchBlogs = () => (dispatch) => {
+  // dispatch(campsitesLoading());
+
+  return fetch(baseUrl + "blogs")
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            `Error ${response.status}: ${response.statusText}`
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        const errMess = new Error(error.message);
+        throw errMess;
+      }
+    )
+    .then((response) => response.json())
+    .then((blogs) => dispatch(addBlogs(blogs)))
+    .catch((error) => dispatch(blogsFailed(error.message)));
+};
+
+export const addBlogs = (recipes) => ({
+  type: ActionTypes.ADD_BLOGS,
+  payload: recipes,
+});
+
+export const blogsLoading = () => ({
+  type: ActionTypes.BLOGS_LOADING,
+});
+
+export const blogsFailed = (errMess) => ({
+  type: ActionTypes.BLOGS_FAILED,
+  payload: errMess,
+});
+
+export const postPost = (postContent, postType) => (dispatch) => {
+  const newPost = {
+    postContent,
+    postType,
+  };
+
+  newPost.username = "Tester username";
+  newPost.date = new Date().toLocaleDateString();
+
+  return fetch(baseUrl + "blogs", {
+    method: "POST",
+    body: JSON.stringify(newPost),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            `Error ${response.status}: ${response.statusText}`
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .then((post) => dispatch(addPost(post)))
+    .catch((error) => {
+      console.log("post favorite", error.message);
+      alert("The post could not be posted\nError: " + error.message);
+    });
+};
+
+export const addPost = (post) => ({
+  type: ActionTypes.ADD_POST,
+  payload: post,
+});

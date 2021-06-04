@@ -12,12 +12,17 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { Icon } from "react-native-elements";
-import { fetchRecipes, fetchFavorites } from "../redux/ActionCreators";
+import {
+  fetchRecipes,
+  fetchFavorites,
+  fetchBlogs,
+} from "../redux/ActionCreators";
 import App from "../App";
 
 const mapDispatchToProps = {
   fetchRecipes,
   fetchFavorites,
+  fetchBlogs,
 };
 
 const MealplanNavigator = createStackNavigator(
@@ -159,6 +164,7 @@ class Main extends Component {
   componentDidMount() {
     this.props.fetchRecipes();
     this.props.fetchFavorites();
+    this.props.fetchBlogs();
   }
 
   render() {

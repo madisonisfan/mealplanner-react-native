@@ -80,7 +80,7 @@ class Recipes extends Component {
                 <Text style={{ fontSize: 18 }}>{item.name}</Text>
                 <Text>{item.description}</Text>
               </View>
-              <View style={{ alignSelf: "flex-end", flex: 1 }}>
+              <View style={{ position: "absolute", right: 0, bottom: 0 }}>
                 <Icon
                   type="font-awesome"
                   size={30}

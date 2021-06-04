@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { recipes } from "./recipesReducer";
 import { favorites } from "./favoritesReducer";
+import { blogs } from "./blogsReducer";
 import { persistStore, persistCombineReducers } from "redux-persist";
 import storage from "redux-persist/es/storage";
 
@@ -21,6 +22,7 @@ export const ConfigureStore = () => {
     persistCombineReducers(config, {
       recipes,
       favorites,
+      blogs,
     }),
     applyMiddleware(thunk, logger)
   );
