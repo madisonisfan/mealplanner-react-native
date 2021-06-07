@@ -16,6 +16,7 @@ import {
   removeFavorite,
   deleteFavorite,
 } from "../redux/ActionCreators";
+import { MultiTap } from "react-native-tap";
 
 const mapStateToProps = (state) => {
   return { recipes: state.recipes, favorites: state.favorites };
@@ -66,31 +67,39 @@ class Recipes extends Component {
       const isFavorited = favoritesList.includes(item.id);
 
       return (
-        <Card>
-          <View style={{ flexDirection: "row" }}>
-            <Image
-              style={{}}
-              resizeMethod="auto"
-              style={{ width: 150, height: 100, marginRight: 10 }}
-              //source={require("./images/food1.jpg")}
-              source={{ uri: baseUrl + item.image }}
-            />
-            <View style={{ flexGrow: 1 }}>
-              <View style={{ flex: 2 }}>
-                <Text style={{ fontSize: 18 }}>{item.name}</Text>
-                <Text>{item.description}</Text>
-              </View>
-              <View style={{ position: "absolute", right: 0, bottom: 0 }}>
-                <Icon
-                  type="font-awesome"
-                  size={30}
-                  name={isFavorited ? "star" : "star-o"}
-                  onPress={() => this.handleFavorite(isFavorited, item.id)}
-                />
+        <MultiTap
+          onSingleTap={() =>
+            this.props.navigation.navigate("RecipeDetails", {
+              recipeId: item.id,
+            })
+          }
+        >
+          <Card>
+            <View style={{ flexDirection: "row" }}>
+              <Image
+                style={{}}
+                resizeMethod="auto"
+                style={{ width: 150, height: 100, marginRight: 10 }}
+                //source={require("./images/food1.jpg")}
+                source={{ uri: baseUrl + item.image }}
+              />
+              <View style={{ flexGrow: 1 }}>
+                <View style={{ flex: 2 }}>
+                  <Text style={{ fontSize: 18 }}>{item.name}</Text>
+                  <Text>{item.description}</Text>
+                </View>
+                <View style={{ position: "absolute", right: 0, bottom: 0 }}>
+                  <Icon
+                    type="font-awesome"
+                    size={30}
+                    name={isFavorited ? "star" : "star-o"}
+                    onPress={() => this.handleFavorite(isFavorited, item.id)}
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        </Card>
+          </Card>
+        </MultiTap>
       );
     };
 

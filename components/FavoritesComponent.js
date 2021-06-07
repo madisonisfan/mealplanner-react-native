@@ -6,8 +6,9 @@ import {
   Picker,
   ScrollView,
   Image,
+  FlatList,
 } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+//import { FlatList } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { Button, Card, Icon } from "react-native-elements";
 import { baseUrl } from "../shared/baseUrl";

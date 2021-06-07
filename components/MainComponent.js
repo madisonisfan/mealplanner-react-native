@@ -5,6 +5,7 @@ import Blog from "./BlogComponent";
 import ProfilePage from "./ProfilePageComponent";
 import Favorites from "./FavoritesComponent";
 import CreatePost from "./CreatePostComponent";
+import RecipeDetails from "./RecipeDetailsComponent";
 import { connect } from "react-redux";
 import { View, Platform, Text } from "react-native";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -47,6 +48,7 @@ const RecipesNavigator = createStackNavigator(
   {
     Recipes: { screen: Recipes },
     Favorites: { screen: Favorites },
+    RecipeDetails: { screen: RecipeDetails },
   },
   {
     initialRouteName: "Recipes",
