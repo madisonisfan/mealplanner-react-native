@@ -34,6 +34,7 @@ class ProfilePage extends Component {
             raised
             titleStyle={{ color: "#000000" }}
             title="My Posts"
+            onPress={() => this.props.navigation.navigate("MyPosts")}
           />
           <Button
             type="outline"

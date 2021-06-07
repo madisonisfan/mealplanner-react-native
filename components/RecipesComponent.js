@@ -118,6 +118,7 @@ class Recipes extends Component {
             raised
             titleStyle={{ color: "#000000" }}
             title="Add Recipe"
+            onPress={() => this.props.navigation.navigate("AddRecipe")}
           />
         </View>
         <View>

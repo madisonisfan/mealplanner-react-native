@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { Button, Card, Icon } from "react-native-elements";
-
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
