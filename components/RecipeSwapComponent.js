@@ -59,12 +59,7 @@ class Favorites extends Component {
                 <Text>{item.description}</Text>
               </View>
               <View style={{ position: "absolute", right: 0, bottom: 0 }}>
-                <Icon
-                  size={30}
-                  name="star"
-                  type="font-awesome"
-                  onPress={() => this.handleFavorite(item.id)}
-                />
+                <Icon type="font-awesome" size={30} name="plus" />
               </View>
             </View>
           </View>
@@ -74,6 +69,9 @@ class Favorites extends Component {
 
     return (
       <View>
+        <Text style={{ textAlign: "center", marginTop: 10, fontSize: 18 }}>
+          Choose a recipe to add to your mealplan{" "}
+        </Text>
         <FlatList
           data={this.props.recipes.recipes.filter((recipe) =>
             favoritesList.includes(recipe.id)

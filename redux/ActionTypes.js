@@ -13,6 +13,6 @@ export const BLOGS_LOADING = "BLOGS_LOADING";
 export const BLOGS_FAILED = "BLOGS_FAILED";
 export const ADD_POST = "ADD_POST";
 
-export const ADD_MEAPLAN = "ADD_MEALPLAN";
+export const ADD_MEALPLAN = "ADD_MEALPLAN";
 export const MEAPLAN_LOADING = "MEALPLAN_LOADING";
 export const MEALPLAN_FAILED = "MEALPLAN_FAILED";

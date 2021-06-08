@@ -8,6 +8,7 @@ import CreatePost from "./CreatePostComponent";
 import AddRecipe from "./AddRecipeComponent";
 import RecipeDetails from "./RecipeDetailsComponent";
 import MyPosts from "./MyPostsComponent";
+import RecipeSwap from "./RecipeSwapComponent";
 
 import { connect } from "react-redux";
 import { View, Platform, Text } from "react-native";
@@ -20,6 +21,7 @@ import {
   fetchRecipes,
   fetchFavorites,
   fetchBlogs,
+  fetchMealplan,
 } from "../redux/ActionCreators";
 import App from "../App";
 
@@ -27,11 +29,13 @@ const mapDispatchToProps = {
   fetchRecipes,
   fetchFavorites,
   fetchBlogs,
+  fetchMealplan,
 };
 
 const MealplanNavigator = createStackNavigator(
   {
     Mealplan: { screen: Mealplan },
+    RecipeSwap: { screen: RecipeSwap },
   },
   {
     defaultNavigationOptions: {
@@ -177,6 +181,7 @@ class Main extends Component {
     this.props.fetchRecipes();
     this.props.fetchFavorites();
     this.props.fetchBlogs();
+    this.props.fetchMealplan();
   }
 
   render() {

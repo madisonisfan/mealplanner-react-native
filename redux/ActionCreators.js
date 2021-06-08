@@ -255,3 +255,52 @@ export const addPost = (post) => ({
   type: ActionTypes.ADD_POST,
   payload: post,
 });
+
+export const fetchMealplan = () => (dispatch) => {
+  // dispatch(campsitesLoading());
+
+  return fetch(baseUrl + "mealplan")
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            `Error ${response.status}: ${response.statusText}`
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        const errMess = new Error(error.message);
+        throw errMess;
+      }
+    )
+    .then((response) => response.json())
+    .then((mealplan) => dispatch(addMealplan(mealplan)))
+    .catch((error) => dispatch(meaplanFailed(error.message)));
+};
+
+export const addMealplan = (mealplan) => ({
+  type: ActionTypes.ADD_MEALPLAN,
+  payload: mealplan,
+});
+
+export const mealplanLoading = () => ({
+  type: ActionTypes.MEALPLAN_LOADING,
+});
+
+export const meaplanFailed = (errMess) => ({
+  type: ActionTypes.MEALPLAN_FAILED,
+  payload: errMess,
+});
+
+/*
+export const editMealplanItem = (mealplanDay, mealplanItemId, recipeId)=>dispatch=>{
+
+  return fetch(baseUrl + )
+
+
+}
+*/

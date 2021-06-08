@@ -27,6 +27,8 @@ class Blog extends Component {
             backgroundColor: "#FFFFFF",
             height: 150,
             marginTop: 5,
+            borderBottomColor: "#C9CCCC",
+            borderBottomWidth: 5,
           }}
         >
           <View style={{ flexDirection: "row" }}>
@@ -35,8 +37,10 @@ class Blog extends Component {
               source={require("./images/profile-pic-white.jpg")}
             />
             <View>
-              <Text style={{ fontWeight: "bold" }}>{item.username}</Text>
-              <Text>{item.date}</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+                {item.username}
+              </Text>
+              <Text style={{ fontSize: 12 }}>{item.date}</Text>
             </View>
             <View style={{ position: "absolute", right: 0 }}>
               <Text>{item.postType}</Text>
@@ -76,6 +80,8 @@ class Blog extends Component {
             backgroundColor: "#FFFFFF",
             flexDirection: "row",
             padding: 10,
+            borderBottomColor: "#C9CCCC",
+            borderBottomWidth: 5,
           }}
         >
           <Image
